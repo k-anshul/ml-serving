@@ -1,4 +1,4 @@
-from ml_models.mobileNetModel import MobileNetBasedModel
+from app.ml_models.mobileNetModel import MobileNetBasedModel
 import os
 
 class ModelStore:

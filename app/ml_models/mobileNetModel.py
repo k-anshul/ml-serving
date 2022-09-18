@@ -66,11 +66,11 @@ class MobileNetBasedModel:
                 continue
             # print(images_paths)
             train_set, val_set = train_test_split(images_paths, test_size=split_size)
-            path_to_validation = os.path.join(self.input_path, "val\\" + dir)
+            path_to_validation = os.path.join(self.input_path, "val", dir)
             if not os.path.isdir(path_to_validation):
                 os.makedirs(path_to_validation)
 
-            path_to_training = os.path.join(self.input_path, "train\\" + dir)
+            path_to_training = os.path.join(self.input_path, "train", dir)
 
             if not os.path.isdir(path_to_training):
                 os.makedirs(path_to_training)

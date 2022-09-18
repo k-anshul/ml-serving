@@ -28,8 +28,8 @@ from ..models.ml_model import (
 from ..models.evaluation import Evaluation
 
 from ..constants import TrainingStatus
-from ml_models.mobileNetModel import MobileNetBasedModel
-from model_store.ModelStore import model_store
+from app.ml_models.mobileNetModel import MobileNetBasedModel
+from app.model_store.ModelStore import model_store
 
 from fastapi import BackgroundTasks
 
@@ -59,12 +59,12 @@ async def get_model(model_id, version):
     try:
         object_id = ObjectId(model_id)
     except Exception as e:
-        return HTTPException(status_code=400, detail=e.args)
+        raise HTTPException(status_code=400, detail=e.args)
 
     model = await get_model_by_id(object_id, version)
     if model is None:
         print("model not found")
-        return HTTPException(status_code=404, detail=f"Model {id} not found")
+        raise HTTPException(status_code=404, detail=f"Model {0} with version {1} not found".format(model_id, version))
     return model
 
 

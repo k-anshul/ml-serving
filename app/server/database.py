@@ -34,7 +34,7 @@ async def add_model(name) -> dict:
     version_status["version"] = uuid.uuid4().hex
     version_status["status"] = TrainingStatus.CREATED
 
-    model_data["versions"]["version"] = version_status
+    model_data["versions"][version_status["version"]] = version_status
 
     model = await models_collection.insert_one(model_data)
 
@@ -60,8 +60,11 @@ async def update_status(id, version, status):
 async def get_model_by_id(id: ObjectId, version: str):
     model = await models_collection.find_one({"_id": id})
     if model is None:
+        print("model with id {} not found".format(str(id)))
         return None
+
     if version not in model["versions"]:
+        print("model with version {} not found".format(str(version)))
         return None
     return model
 

@@ -4,4 +4,5 @@ motor==2.5.1
 aiofiles==22.1.0
 python-multipart==0.0.5
 sklearn==0.0
-tensorflow=2.10.0
+tensorflow==2.10.0
+pillow==9.2.0

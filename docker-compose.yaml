@@ -1,0 +1,20 @@
+version: "3.9"
+
+services:
+  backend:
+    build: .
+    image: ml-serving
+    ports:
+      - "8000:8000"
+    volumes:
+      - C:\Users\kansh\data:/data
+    environment:
+      MONGO_HOST: db
+  db:
+    image: mongo:latest
+    expose:
+      - "27017"
+    ports:
+      - "27017:27017"
+    volumes:
+      - C:\Users\kansh\data\mongo_data:/data/db
