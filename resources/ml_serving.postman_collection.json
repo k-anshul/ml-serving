@@ -1,0 +1,342 @@
+{
+	"info": {
+		"_postman_id": "ad54cbcf-5dc8-45e6-afd4-f0a123e756e2",
+		"name": "ml_serving",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "add bad images",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "files",
+							"description": "OK",
+							"type": "file",
+							"src": [
+								"/C:/Users/kansh/Downloads/Machine Learning HW - SW v4/Machine Learning HW - SW v4/dataset/NG/03.jpg",
+								"/C:/Users/kansh/Downloads/Machine Learning HW - SW v4/Machine Learning HW - SW v4/dataset/NG/07.jpg",
+								"/C:/Users/kansh/Downloads/Machine Learning HW - SW v4/Machine Learning HW - SW v4/dataset/NG/15.jpg",
+								"/C:/Users/kansh/Downloads/Machine Learning HW - SW v4/Machine Learning HW - SW v4/dataset/NG/16.jpg",
+								"/C:/Users/kansh/Downloads/Machine Learning HW - SW v4/Machine Learning HW - SW v4/dataset/NG/39.jpg",
+								"/C:/Users/kansh/Downloads/Machine Learning HW - SW v4/Machine Learning HW - SW v4/dataset/NG/41.jpg",
+								"/C:/Users/kansh/Downloads/Machine Learning HW - SW v4/Machine Learning HW - SW v4/dataset/NG/57.jpg",
+								"/C:/Users/kansh/Downloads/Machine Learning HW - SW v4/Machine Learning HW - SW v4/dataset/NG/69.jpg",
+								"/C:/Users/kansh/Downloads/Machine Learning HW - SW v4/Machine Learning HW - SW v4/dataset/NG/82.jpg"
+							]
+						},
+						{
+							"key": "label",
+							"value": "good",
+							"type": "default",
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8000/app/train/632708bb6f6d13dde0817292/55d92c9c27c04529a4ab582dc64b7dfa/bad",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"app",
+						"train",
+						"632708bb6f6d13dde0817292",
+						"55d92c9c27c04529a4ab582dc64b7dfa",
+						"bad"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create model metadata",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\":\"ML Model 2\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8000/app/train",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"app",
+						"train"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add good images",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "files",
+							"type": "file",
+							"src": [
+								"/C:/Users/kansh/Downloads/Machine Learning HW - SW v4/Machine Learning HW - SW v4/dataset/OK/00.jpg",
+								"/C:/Users/kansh/Downloads/Machine Learning HW - SW v4/Machine Learning HW - SW v4/dataset/OK/01.jpg",
+								"/C:/Users/kansh/Downloads/Machine Learning HW - SW v4/Machine Learning HW - SW v4/dataset/OK/02.jpg",
+								"/C:/Users/kansh/Downloads/Machine Learning HW - SW v4/Machine Learning HW - SW v4/dataset/OK/04.jpg",
+								"/C:/Users/kansh/Downloads/Machine Learning HW - SW v4/Machine Learning HW - SW v4/dataset/OK/05.jpg",
+								"/C:/Users/kansh/Downloads/Machine Learning HW - SW v4/Machine Learning HW - SW v4/dataset/OK/06.jpg",
+								"/C:/Users/kansh/Downloads/Machine Learning HW - SW v4/Machine Learning HW - SW v4/dataset/OK/08.jpg",
+								"/C:/Users/kansh/Downloads/Machine Learning HW - SW v4/Machine Learning HW - SW v4/dataset/OK/09.jpg",
+								"/C:/Users/kansh/Downloads/Machine Learning HW - SW v4/Machine Learning HW - SW v4/dataset/OK/10.jpg",
+								"/C:/Users/kansh/Downloads/Machine Learning HW - SW v4/Machine Learning HW - SW v4/dataset/OK/11.jpg",
+								"/C:/Users/kansh/Downloads/Machine Learning HW - SW v4/Machine Learning HW - SW v4/dataset/OK/12.jpg",
+								"/C:/Users/kansh/Downloads/Machine Learning HW - SW v4/Machine Learning HW - SW v4/dataset/OK/13.jpg",
+								"/C:/Users/kansh/Downloads/Machine Learning HW - SW v4/Machine Learning HW - SW v4/dataset/OK/14.jpg",
+								"/C:/Users/kansh/Downloads/Machine Learning HW - SW v4/Machine Learning HW - SW v4/dataset/OK/17.jpg",
+								"/C:/Users/kansh/Downloads/Machine Learning HW - SW v4/Machine Learning HW - SW v4/dataset/OK/18.jpg",
+								"/C:/Users/kansh/Downloads/Machine Learning HW - SW v4/Machine Learning HW - SW v4/dataset/OK/19.jpg",
+								"/C:/Users/kansh/Downloads/Machine Learning HW - SW v4/Machine Learning HW - SW v4/dataset/OK/20.jpg",
+								"/C:/Users/kansh/Downloads/Machine Learning HW - SW v4/Machine Learning HW - SW v4/dataset/OK/21.jpg",
+								"/C:/Users/kansh/Downloads/Machine Learning HW - SW v4/Machine Learning HW - SW v4/dataset/OK/22.jpg",
+								"/C:/Users/kansh/Downloads/Machine Learning HW - SW v4/Machine Learning HW - SW v4/dataset/OK/23.jpg",
+								"/C:/Users/kansh/Downloads/Machine Learning HW - SW v4/Machine Learning HW - SW v4/dataset/OK/24.jpg",
+								"/C:/Users/kansh/Downloads/Machine Learning HW - SW v4/Machine Learning HW - SW v4/dataset/OK/25.jpg",
+								"/C:/Users/kansh/Downloads/Machine Learning HW - SW v4/Machine Learning HW - SW v4/dataset/OK/26.jpg",
+								"/C:/Users/kansh/Downloads/Machine Learning HW - SW v4/Machine Learning HW - SW v4/dataset/OK/27.jpg",
+								"/C:/Users/kansh/Downloads/Machine Learning HW - SW v4/Machine Learning HW - SW v4/dataset/OK/28.jpg",
+								"/C:/Users/kansh/Downloads/Machine Learning HW - SW v4/Machine Learning HW - SW v4/dataset/OK/29.jpg",
+								"/C:/Users/kansh/Downloads/Machine Learning HW - SW v4/Machine Learning HW - SW v4/dataset/OK/30.jpg",
+								"/C:/Users/kansh/Downloads/Machine Learning HW - SW v4/Machine Learning HW - SW v4/dataset/OK/31.jpg",
+								"/C:/Users/kansh/Downloads/Machine Learning HW - SW v4/Machine Learning HW - SW v4/dataset/OK/32.jpg",
+								"/C:/Users/kansh/Downloads/Machine Learning HW - SW v4/Machine Learning HW - SW v4/dataset/OK/33.jpg",
+								"/C:/Users/kansh/Downloads/Machine Learning HW - SW v4/Machine Learning HW - SW v4/dataset/OK/34.jpg",
+								"/C:/Users/kansh/Downloads/Machine Learning HW - SW v4/Machine Learning HW - SW v4/dataset/OK/35.jpg",
+								"/C:/Users/kansh/Downloads/Machine Learning HW - SW v4/Machine Learning HW - SW v4/dataset/OK/36.jpg",
+								"/C:/Users/kansh/Downloads/Machine Learning HW - SW v4/Machine Learning HW - SW v4/dataset/OK/37.jpg",
+								"/C:/Users/kansh/Downloads/Machine Learning HW - SW v4/Machine Learning HW - SW v4/dataset/OK/38.jpg",
+								"/C:/Users/kansh/Downloads/Machine Learning HW - SW v4/Machine Learning HW - SW v4/dataset/OK/40.jpg",
+								"/C:/Users/kansh/Downloads/Machine Learning HW - SW v4/Machine Learning HW - SW v4/dataset/OK/42.jpg",
+								"/C:/Users/kansh/Downloads/Machine Learning HW - SW v4/Machine Learning HW - SW v4/dataset/OK/43.jpg",
+								"/C:/Users/kansh/Downloads/Machine Learning HW - SW v4/Machine Learning HW - SW v4/dataset/OK/44.jpg",
+								"/C:/Users/kansh/Downloads/Machine Learning HW - SW v4/Machine Learning HW - SW v4/dataset/OK/45.jpg",
+								"/C:/Users/kansh/Downloads/Machine Learning HW - SW v4/Machine Learning HW - SW v4/dataset/OK/46.jpg",
+								"/C:/Users/kansh/Downloads/Machine Learning HW - SW v4/Machine Learning HW - SW v4/dataset/OK/47.jpg",
+								"/C:/Users/kansh/Downloads/Machine Learning HW - SW v4/Machine Learning HW - SW v4/dataset/OK/48.jpg",
+								"/C:/Users/kansh/Downloads/Machine Learning HW - SW v4/Machine Learning HW - SW v4/dataset/OK/49.jpg",
+								"/C:/Users/kansh/Downloads/Machine Learning HW - SW v4/Machine Learning HW - SW v4/dataset/OK/50.jpg",
+								"/C:/Users/kansh/Downloads/Machine Learning HW - SW v4/Machine Learning HW - SW v4/dataset/OK/51.jpg",
+								"/C:/Users/kansh/Downloads/Machine Learning HW - SW v4/Machine Learning HW - SW v4/dataset/OK/52.jpg",
+								"/C:/Users/kansh/Downloads/Machine Learning HW - SW v4/Machine Learning HW - SW v4/dataset/OK/53.jpg",
+								"/C:/Users/kansh/Downloads/Machine Learning HW - SW v4/Machine Learning HW - SW v4/dataset/OK/54.jpg",
+								"/C:/Users/kansh/Downloads/Machine Learning HW - SW v4/Machine Learning HW - SW v4/dataset/OK/55.jpg",
+								"/C:/Users/kansh/Downloads/Machine Learning HW - SW v4/Machine Learning HW - SW v4/dataset/OK/56.jpg",
+								"/C:/Users/kansh/Downloads/Machine Learning HW - SW v4/Machine Learning HW - SW v4/dataset/OK/58.jpg",
+								"/C:/Users/kansh/Downloads/Machine Learning HW - SW v4/Machine Learning HW - SW v4/dataset/OK/59.jpg",
+								"/C:/Users/kansh/Downloads/Machine Learning HW - SW v4/Machine Learning HW - SW v4/dataset/OK/60.jpg",
+								"/C:/Users/kansh/Downloads/Machine Learning HW - SW v4/Machine Learning HW - SW v4/dataset/OK/61.jpg",
+								"/C:/Users/kansh/Downloads/Machine Learning HW - SW v4/Machine Learning HW - SW v4/dataset/OK/62.jpg",
+								"/C:/Users/kansh/Downloads/Machine Learning HW - SW v4/Machine Learning HW - SW v4/dataset/OK/63.jpg",
+								"/C:/Users/kansh/Downloads/Machine Learning HW - SW v4/Machine Learning HW - SW v4/dataset/OK/64.jpg",
+								"/C:/Users/kansh/Downloads/Machine Learning HW - SW v4/Machine Learning HW - SW v4/dataset/OK/65.jpg",
+								"/C:/Users/kansh/Downloads/Machine Learning HW - SW v4/Machine Learning HW - SW v4/dataset/OK/66.jpg",
+								"/C:/Users/kansh/Downloads/Machine Learning HW - SW v4/Machine Learning HW - SW v4/dataset/OK/67.jpg",
+								"/C:/Users/kansh/Downloads/Machine Learning HW - SW v4/Machine Learning HW - SW v4/dataset/OK/68.jpg",
+								"/C:/Users/kansh/Downloads/Machine Learning HW - SW v4/Machine Learning HW - SW v4/dataset/OK/70.jpg",
+								"/C:/Users/kansh/Downloads/Machine Learning HW - SW v4/Machine Learning HW - SW v4/dataset/OK/71.jpg",
+								"/C:/Users/kansh/Downloads/Machine Learning HW - SW v4/Machine Learning HW - SW v4/dataset/OK/72.jpg",
+								"/C:/Users/kansh/Downloads/Machine Learning HW - SW v4/Machine Learning HW - SW v4/dataset/OK/73.jpg",
+								"/C:/Users/kansh/Downloads/Machine Learning HW - SW v4/Machine Learning HW - SW v4/dataset/OK/74.jpg",
+								"/C:/Users/kansh/Downloads/Machine Learning HW - SW v4/Machine Learning HW - SW v4/dataset/OK/75.jpg",
+								"/C:/Users/kansh/Downloads/Machine Learning HW - SW v4/Machine Learning HW - SW v4/dataset/OK/76.jpg",
+								"/C:/Users/kansh/Downloads/Machine Learning HW - SW v4/Machine Learning HW - SW v4/dataset/OK/77.jpg",
+								"/C:/Users/kansh/Downloads/Machine Learning HW - SW v4/Machine Learning HW - SW v4/dataset/OK/78.jpg",
+								"/C:/Users/kansh/Downloads/Machine Learning HW - SW v4/Machine Learning HW - SW v4/dataset/OK/79.jpg",
+								"/C:/Users/kansh/Downloads/Machine Learning HW - SW v4/Machine Learning HW - SW v4/dataset/OK/80.jpg",
+								"/C:/Users/kansh/Downloads/Machine Learning HW - SW v4/Machine Learning HW - SW v4/dataset/OK/81.jpg",
+								"/C:/Users/kansh/Downloads/Machine Learning HW - SW v4/Machine Learning HW - SW v4/dataset/OK/83.jpg",
+								"/C:/Users/kansh/Downloads/Machine Learning HW - SW v4/Machine Learning HW - SW v4/dataset/OK/84.jpg",
+								"/C:/Users/kansh/Downloads/Machine Learning HW - SW v4/Machine Learning HW - SW v4/dataset/OK/85.jpg",
+								"/C:/Users/kansh/Downloads/Machine Learning HW - SW v4/Machine Learning HW - SW v4/dataset/OK/86.jpg",
+								"/C:/Users/kansh/Downloads/Machine Learning HW - SW v4/Machine Learning HW - SW v4/dataset/OK/87.jpg",
+								"/C:/Users/kansh/Downloads/Machine Learning HW - SW v4/Machine Learning HW - SW v4/dataset/OK/88.jpg",
+								"/C:/Users/kansh/Downloads/Machine Learning HW - SW v4/Machine Learning HW - SW v4/dataset/OK/89.jpg"
+							]
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8000/app/train/632708bb6f6d13dde0817292/55d92c9c27c04529a4ab582dc64b7dfa/good",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"app",
+						"train",
+						"632708bb6f6d13dde0817292",
+						"55d92c9c27c04529a4ab582dc64b7dfa",
+						"good"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "submit model for training",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:8000/app/train/submit/632708bb6f6d13dde0817292/55d92c9c27c04529a4ab582dc64b7dfa",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"app",
+						"train",
+						"submit",
+						"632708bb6f6d13dde0817292",
+						"55d92c9c27c04529a4ab582dc64b7dfa"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get all metadata",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8000/app/metadata",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"app",
+						"metadata"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "evaluate",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "files",
+							"contentType": "image/jpeg",
+							"type": "file",
+							"src": [
+								"/C:/Users/kansh/Downloads/Machine Learning HW - SW v4/Machine Learning HW - SW v4/dataset/OK/00.jpg",
+								"/C:/Users/kansh/Downloads/Machine Learning HW - SW v4/Machine Learning HW - SW v4/dataset/OK/01.jpg"
+							]
+						},
+						{
+							"key": "filenames",
+							"value": "00,01",
+							"type": "text"
+						},
+						{
+							"key": "truths",
+							"value": "good,bad",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8000/app/evaluate/632708bb6f6d13dde0817292/55d92c9c27c04529a4ab582dc64b7dfa",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"app",
+						"evaluate",
+						"632708bb6f6d13dde0817292",
+						"55d92c9c27c04529a4ab582dc64b7dfa"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "predict",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/C:/Users/kansh/Downloads/Machine Learning HW - SW v4/Machine Learning HW - SW v4/dataset/OK/01.jpg"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8000/app/predict",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"app",
+						"predict"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get all history",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/app/history",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"app",
+						"history"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

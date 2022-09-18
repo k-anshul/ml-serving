@@ -46,6 +46,7 @@ async def add_model(name) -> dict:
     return await models_collection.find_one({"_id": model.inserted_id})
 
 
+# update status of a given model id and version
 async def update_status(id, version, status):
     model = await models_collection.find_one({"_id": ObjectId(id)})
     if model is None:
@@ -57,6 +58,7 @@ async def update_status(id, version, status):
     await models_collection.find_one({"_id": ObjectId(id)})
 
 
+# retrieves model by id
 async def get_model_by_id(id: ObjectId, version: str):
     model = await models_collection.find_one({"_id": id})
     if model is None:
@@ -68,9 +70,11 @@ async def get_model_by_id(id: ObjectId, version: str):
         return None
     return model
 
+
+# get latest model with trained version
 ## todo :: find latest model
 async def get_latest_model() -> dict:
-    return await models_collection.find_one({"active_version": {"$exists":True}})
+    return await models_collection.find_one({"active_version": {"$exists": True}})
 
 
 async def add_evaluation(evaluation_data) -> dict:
@@ -82,9 +86,11 @@ async def add_evaluation(evaluation_data) -> dict:
     await history_collection.update_one({'_id': data.inserted_id}, {"$set": new_data}, upsert=False)
     return await history_collection.find_one({"_id": data.inserted_id})
 
+
 async def update_evaluation(evaluation_data) -> dict:
     await history_collection.update_one({"_id": evaluation_data["_id"]}, {"$set": evaluation_data})
     return await history_collection.find_one({"_id": evaluation_data["_id"]})
+
 
 async def fetch_all_history() -> list:
     data = history_collection.find({})
@@ -93,6 +99,7 @@ async def fetch_all_history() -> list:
         result.append(d)
     return result
 
+
 async def fetch_history_for_model(model_id) -> list:
     data = history_collection.find({"model_id": ObjectId(model_id)})
     result = list()
@@ -100,9 +107,12 @@ async def fetch_history_for_model(model_id) -> list:
         result.append(d)
     return result
 
+
 async def find_model_by_name(name) -> dict:
     return await models_collection.find_one({"name": name})
 
+
+# add new version for existing model
 async def add_model_version(model) -> dict:
     version_status = dict()
     version_status["version"] = uuid.uuid4().hex
