@@ -8,6 +8,7 @@ class Evaluation(BaseModel):
     model_id: PyObjectId = Field(default_factory=PyObjectId, alias="model_id")
     evaluation_path: str = Field(...)
     truth: dict = Field(...)
+    model_version: str = Field(...)
     result: dict = Field(...)
     is_prediction: bool = Field(False)
 

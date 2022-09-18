@@ -1,5 +1,6 @@
+import uuid
+
 import motor.motor_asyncio
-import time
 import os
 from bson.objectid import ObjectId
 
@@ -9,30 +10,11 @@ from .config import settings
 client = motor.motor_asyncio.AsyncIOMotorClient(settings.mongo_details)
 database = client.ml_serving
 
-models_collection = database.get_collection("ml_models")
-history_collection = database.get_collection("history")
+models_collection = database.get_collection("ml_models_v2")
+history_collection = database.get_collection("history_v2")
 training_file_path = settings.training_file_path
 evaluate_path = settings.evaluate_file_path
 model_path = settings.model_path
-
-def models_helper(model) -> dict:
-    return {
-        "id": str(model["_id"]),
-        "name": model["name"],
-        "version": model["version"],
-        "status": str(TrainingStatus(model["status"])),
-        "training_dataset_path": model["training_dataset_path"],
-        "model_path": model["model_path"]
-    }
-
-def evaluation_helper(data) -> dict:
-    return {
-        "id": str(data["_id"]),
-        "model_id": str(data["model_id"]),
-        "evaluation_path": data["evaluation_path"],
-        "truth": data["truth"],
-        "result": (data["result"])
-    }
 
 
 # Retrieve all model information in the database
@@ -44,9 +26,15 @@ async def retrieve_models():
 
 
 # Add a new model into to the database
-async def add_model(model_data) -> dict:
-    model_data["status"] = TrainingStatus.CREATED
-    model_data["created_on"] = int(time.time())
+async def add_model(name) -> dict:
+    model_data = dict()
+    model_data["name"] = name
+    model_data["versions"] = dict()
+    version_status = dict()
+    version_status["version"] = uuid.uuid4().hex
+    version_status["status"] = TrainingStatus.CREATED
+
+    model_data["versions"]["version"] = version_status
 
     model = await models_collection.insert_one(model_data)
 
@@ -58,25 +46,28 @@ async def add_model(model_data) -> dict:
     return await models_collection.find_one({"_id": model.inserted_id})
 
 
-async def update_status(id, status):
+async def update_status(id, version, status):
     model = await models_collection.find_one({"_id": ObjectId(id)})
     if model is None:
         print("model with {} not found".format(id))
-    model["status"] = status
+    model["versions"][version]["status"] = status
+    if status == TrainingStatus.TRAINED:
+        model["active_version"] = version
     await models_collection.update_one({'_id': ObjectId(id)}, {"$set": model}, upsert=False)
-    new_model = await models_collection.find_one({"_id": ObjectId(id)})
-    print(new_model)
+    await models_collection.find_one({"_id": ObjectId(id)})
 
 
-async def get_model_by_id(id: ObjectId):
+async def get_model_by_id(id: ObjectId, version: str):
     model = await models_collection.find_one({"_id": id})
     if model is None:
+        return None
+    if version not in model["versions"]:
         return None
     return model
 
 ## todo :: find latest model
 async def get_latest_model() -> dict:
-    return await models_collection.find_one({"status": int(TrainingStatus.TRAINED)})
+    return await models_collection.find_one({"active_version": {"$exists":True}})
 
 
 async def add_evaluation(evaluation_data) -> dict:
@@ -105,3 +96,14 @@ async def fetch_history_for_model(model_id) -> list:
     async for d in data:
         result.append(d)
     return result
+
+async def find_model_by_name(name) -> dict:
+    return await models_collection.find_one({"name": name})
+
+async def add_model_version(model) -> dict:
+    version_status = dict()
+    version_status["version"] = uuid.uuid4().hex
+    version_status["status"] = TrainingStatus.CREATED
+    model["versions"].update({version_status["version"]: version_status})
+    await models_collection.update_one({'_id': ObjectId(model["_id"])}, {"$set": model}, upsert=False)
+    return await models_collection.find_one({'_id': ObjectId(model["_id"])})
