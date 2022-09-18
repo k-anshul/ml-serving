@@ -38,13 +38,13 @@ from fastapi import BackgroundTasks
 router = APIRouter()
 
 
-@router.get("/metadata", response_description="Models metadata from the database", response_model=List[MlModel])
+@router.get("/metadata", summary="Models metadata from the database", response_model=List[MlModel])
 async def retrieve_all_models_data():
     models = await retrieve_models()
     return models
 
 
-@router.post("/train", response_description="create a model metadata placeholder for training", response_model=MlModel)
+@router.post("/train", summary="create a model metadata placeholder for training", response_model=MlModel)
 async def train_model(req: MlModelCreate):
     # create metadata in db
     model = await find_model_by_name(req.name)
@@ -60,7 +60,7 @@ async def train_model(req: MlModelCreate):
     return model
 
 
-@router.put("/train/{model_id}/{version}/{label}", response_description="add images to a model for training with label")
+@router.put("/train/{model_id}/{version}/{label}", summary="add images to a model for training with label")
 async def train_model(model_id,
                       label,
                       version,
@@ -82,7 +82,7 @@ async def train_model(model_id,
     return JSONResponse(status_code=status.HTTP_201_CREATED, content=[file.filename for file in files])
 
 
-@router.post("/train/submit/{model_id}/{version}", response_description="submit model for training")
+@router.post("/train/submit/{model_id}/{version}", summary="submit model for training")
 async def train_model(model_id, version, background_tasks: BackgroundTasks):
     # get model metadata
     model = await get_model(model_id, version)
@@ -104,7 +104,7 @@ async def train_model(model_id, version, background_tasks: BackgroundTasks):
     return JSONResponse(status_code=status.HTTP_202_ACCEPTED, content="training started")
 
 
-@router.post("/evaluate/{model_id}/{version}", response_description="evaluate a model for given data",
+@router.post("/evaluate/{model_id}/{version}", summary="evaluate a model for given data",
              response_model=Evaluation)
 async def evaluate_model(model_id,
                          version,
@@ -156,7 +156,7 @@ async def evaluate_model(model_id,
     return await update_evaluation(evaluation)
 
 
-@router.post("/predict", response_description="predict for given data", response_model=Evaluation)
+@router.post("/predict", summary="predict for given data", response_model=Evaluation)
 async def predict(file: UploadFile = File(default=..., description="file with name")):
     # get latest model metadata
     model = await get_latest_model()
@@ -194,7 +194,7 @@ async def predict(file: UploadFile = File(default=..., description="file with na
     return await update_evaluation(evaluation)
 
 
-@router.get("/history", response_description="history of predictions", response_model=List[Evaluation])
+@router.get("/history", summary="history of predictions", response_model=List[Evaluation])
 async def evaluate_model(model_id: str = None):
     if model_id is None:
         # get entire history
