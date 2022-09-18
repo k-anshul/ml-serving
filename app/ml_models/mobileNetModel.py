@@ -11,18 +11,21 @@ from sklearn.model_selection import train_test_split
 avg_sizes = (397, 364, 3)
 avg_size = (397, 364)
 
+
 class MobileNetBasedModel:
 
     def __init__(self, input_path, model_output):
+        self.model = None
         self.input_path = input_path
         self.model_output = model_output
 
+    def start(self):
+        self.model = tf.keras.models.load_model(self.model_output)
+        
     def predict(self, test_images_path):
-        print(test_images_path)
-        model = tf.keras.models.load_model(self.model_output)
         test_set = self.test_generator(batch_size=64, path_to_test=test_images_path)
-        preds = model.predict(test_set).flatten()
-        return preds
+        preds = self.model.predict(test_set).flatten()
+        return ["good" if p > 0.5 else "bad" for p in preds]
 
     def test_generator(self, batch_size, path_to_test):
 
@@ -59,7 +62,7 @@ class MobileNetBasedModel:
         for dir in dirs:
             dir_path = os.path.join(self.input_path, dir)
             images_paths = glob(os.path.join(dir_path, "*.jpg"))
-            if len(images_paths) == 0 :
+            if len(images_paths) == 0:
                 continue
             # print(images_paths)
             train_set, val_set = train_test_split(images_paths, test_size=split_size)
@@ -127,14 +130,6 @@ class MobileNetBasedModel:
         train, val = self.train_val_generators(batch_size=batch_size)
         epochs = 8
 
-        ckpt_saver = ModelCheckpoint(
-            filepath=self.model_output,
-            verbose=1,
-            monitor="val_loss",
-            save_best_only=True,
-            save_freq="epoch",
-        )
-
         early_stop = EarlyStopping(
             monitor="val_loss",
             patience=2,
@@ -152,5 +147,7 @@ class MobileNetBasedModel:
             validation_data=val,
             batch_size=batch_size,
             epochs=epochs,
-            callbacks=[early_stop, ckpt_saver]
+            callbacks=[early_stop]
         )
+
+        self.model.save(self.model_output)

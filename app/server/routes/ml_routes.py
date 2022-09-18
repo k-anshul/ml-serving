@@ -66,7 +66,7 @@ async def get_model(model_id):
 async def train_model(model_id,
                       label,
                       files: list[UploadFile] = File(default=..., description="multiple file with name as type")):
-    model = get_model(model_id)
+    model = await get_model(model_id)
     destination_file_dir = os.path.join(model["training_dataset_path"], label)
     create_dir_if_not_exist(destination_file_dir)
 
@@ -143,7 +143,7 @@ async def evaluate_model(model_id,
 
     result = dict()
     for file, pred in zip(filenames, preds):
-        result[file] = float(pred)
+        result[file] = pred
     evaluation["result"] = result
     return await update_evaluation(evaluation)
 
@@ -172,7 +172,7 @@ async def predict(file: UploadFile = File(default=..., description="file with na
     pred = ml_model.predict(evaluation["evaluation_path"])
 
     result = dict()
-    result[file.filename] = float(pred)
+    result[file.filename] = pred
     evaluation["result"] = result
     return await update_evaluation(evaluation)
 

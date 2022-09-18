@@ -10,6 +10,7 @@ class ModelStore:
         if model["_id"] not in self.running_model:
             print("starting model")
             self.running_model[model["_id"]] = MobileNetBasedModel(model["training_dataset_path"], model["model_path"])
+            self.running_model[model["_id"]].start()
         return self.running_model[model["_id"]]
 
 model_store = ModelStore()
