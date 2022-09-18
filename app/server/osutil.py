@@ -1,7 +1,11 @@
 import os
-from pathlib import Path
+import aiofiles
+def create_dir_if_not_exist(path):
+    if not os.path.isdir(path):
+        os.makedirs(path)
 
-class OsUtil:
-    def __init__(self):
-        self.training_data_dir_path = os.environ['HOME'] + "training_data"
-        self.training_data_dir = Path("training_data_dir_path").mkdir(parents=True, exist_ok=True)
+
+async def write_to_file(in_file, out_file_path):
+    async with aiofiles.open(out_file_path, 'wb') as out_file:
+        while content := await in_file.read(1024):  # async read file chunk
+            await out_file.write(content)  # async write file chunk

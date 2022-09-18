@@ -1,9 +1,12 @@
 from datetime import datetime
 
 from pydantic import BaseModel, Field
-from server.constants import TrainingStatus
+from ..constants import TrainingStatus
+from bson import ObjectId
+from .PyObjectId import PyObjectId
 
-class MlModelSchema(BaseModel):
+class MlModel(BaseModel):
+    id: PyObjectId = Field(default_factory=PyObjectId, alias="_id")
     name: str = Field(...)
     version: str = Field(...)
     created_on: datetime = Field(...)
@@ -11,21 +14,11 @@ class MlModelSchema(BaseModel):
     status: TrainingStatus = Field(...)
     training_dataset_path: str = Field(...)
 
+    class Config:
+        allow_population_by_field_name = True
+        arbitrary_types_allowed = True
+        json_encoders = {ObjectId: str}
+
 class MlModelCreate(BaseModel):
     name: str = Field(...)
     version: str = Field(...)
-
-def ResponseModel(data, message, code = 200):
-    return {
-        "data": [data],
-        "code": code,
-        "message": message,
-    }
-
-
-def ErrorResponseModel(error, code, message):
-    return {"error": error, "code": code, "message": message}
-
-class Base(BaseModel):
-    name: str
-    truth: str
